@@ -109,6 +109,16 @@ function admin_slug(string $value): string
 function admin_layout_start(string $title): void
 {
     $flash = admin_flash();
+    $page = basename((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+    $teamType = ($_GET['type'] ?? '') === 'student' ? 'student' : 'board';
+    if ($page === 'team-edit.php' && isset($_GET['id'])) {
+        foreach (admin_read_json('team.json') as $member) {
+            if (($member['id'] ?? '') === $_GET['id']) {
+                $teamType = ($member['type'] ?? 'board') === 'student' ? 'student' : 'board';
+                break;
+            }
+        }
+    }
     ?><!doctype html>
     <html lang="vi">
     <head>
@@ -121,13 +131,13 @@ function admin_layout_start(string $title): void
     <div class="admin-shell">
         <aside class="admin-sidebar">
             <a class="admin-brand" href="index.php"><span>⛳</span> Golf Đa Phước</a>
-            <nav>
-                <a href="index.php">Tổng quan</a>
-                <a href="posts.php">Bài viết</a>
-                <a href="team.php?type=board">Ban điều hành</a>
-                <a href="team.php?type=student">Sinh viên</a>
-                <a href="settings.php">Thông tin website</a>
-                <a href="../" target="_blank">Xem website ↗</a>
+            <nav aria-label="Điều hướng quản trị">
+                <a class="<?= $page === 'index.php' ? 'active' : '' ?>" href="index.php" <?= $page === 'index.php' ? 'aria-current="page"' : '' ?>>Tổng quan</a>
+                <a class="<?= in_array($page, ['posts.php', 'post-edit.php'], true) ? 'active' : '' ?>" href="posts.php" <?= in_array($page, ['posts.php', 'post-edit.php'], true) ? 'aria-current="page"' : '' ?>>Bài viết</a>
+                <a class="<?= in_array($page, ['team.php', 'team-edit.php'], true) && $teamType === 'board' ? 'active' : '' ?>" href="team.php?type=board" <?= in_array($page, ['team.php', 'team-edit.php'], true) && $teamType === 'board' ? 'aria-current="page"' : '' ?>>Ban điều hành</a>
+                <a class="<?= in_array($page, ['team.php', 'team-edit.php'], true) && $teamType === 'student' ? 'active' : '' ?>" href="team.php?type=student" <?= in_array($page, ['team.php', 'team-edit.php'], true) && $teamType === 'student' ? 'aria-current="page"' : '' ?>>Sinh viên</a>
+                <a class="<?= $page === 'settings.php' ? 'active' : '' ?>" href="settings.php" <?= $page === 'settings.php' ? 'aria-current="page"' : '' ?>>Thông tin website</a>
+                <a href="../" target="_blank" rel="noopener noreferrer">Xem website ↗</a>
             </nav>
             <a class="admin-logout" href="logout.php">Đăng xuất</a>
         </aside>

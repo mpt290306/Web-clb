@@ -13,6 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 admin_layout_start('Thông tin website');
 ?>
-<section class="page-heading"><div><p class="eyebrow">Cài đặt</p><h1>Thông tin website</h1><p>Quản lý các thông tin cơ bản, sẵn sàng để kết nối vào giao diện public.</p></div></section>
+<section class="page-heading"><div><p class="eyebrow">Cài đặt</p><h1>Thông tin website</h1><p>Lưu thông tin dùng trong trang quản trị. Nội dung các trang công khai hiện vẫn lấy từ SheetDB.</p></div></section>
 <form class="panel editor-form" method="post"><input type="hidden" name="token" value="<?= admin_e(admin_form_token()) ?>"><label>Tên website<input name="site_name" value="<?= admin_e($settings['site_name']) ?>"></label><label>Thông báo / slogan<textarea name="notice" rows="3"><?= admin_e($settings['notice']) ?></textarea></label><label>Thông tin liên hệ<textarea name="contact" rows="4"><?= admin_e($settings['contact']) ?></textarea></label><label>Facebook<input name="facebook" value="<?= admin_e($settings['facebook']) ?>"></label><button class="button primary" type="submit">Lưu thông tin</button></form>
 <?php admin_layout_end();
