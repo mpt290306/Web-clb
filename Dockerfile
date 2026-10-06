@@ -7,8 +7,12 @@ COPY . /var/www/html/
 # Cấp quyền cho thư mục web (để tránh lỗi truy cập)
 RUN chown -R www-data:www-data /var/www/html
 
-# Mở cổng 80 cho web
-EXPOSE 80
+# Render routes web requests to port 10000 by default.
+RUN sed -i 's/Listen 80/Listen 10000/' /etc/apache2/ports.conf \
+    && sed -i 's/<VirtualHost \*:80>/<VirtualHost *:10000>/' /etc/apache2/sites-available/000-default.conf
+
+# Mở cổng HTTP mà Render dùng
+EXPOSE 10000
 
 # Chạy Apache ở chế độ foreground
 CMD ["apache2-foreground"]
