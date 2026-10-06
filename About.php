@@ -3,7 +3,7 @@ include 'header.php';
 include 'config.php'; 
 
 // 1. Lấy dữ liệu từ Sheet (Giả sử bạn dùng chung URL_ABOUT_DATA hoặc URL_HERO_BG tùy cấu hình)
-$about_data = json_decode(@file_get_contents(URL_ABOUT_DATA), true) ?? [];
+$about_data = api_read_json(URL_ABOUT_DATA);
 
 // Hàm hỗ trợ lọc dữ liệu theo nhóm (section_key)
 function get_content_by_section($data, $key) {
@@ -13,7 +13,7 @@ function get_content_by_section($data, $key) {
 }
 
 // 2. Lấy link ảnh banner hàng 2 như đã làm ở bước trước
-$settings = json_decode(@file_get_contents(URL_HERO_BG), true);
+$settings = api_read_json(URL_HERO_BG);
 $about_banner_url = $settings[1]['link'] ?? 'Image/default-about-banner.jpg'; 
 ?>
 

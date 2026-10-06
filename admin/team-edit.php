@@ -47,8 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = 'Chỉ chấp nhận ảnh JPG, PNG, WebP hoặc GIF.';
             } else {
                 $filename = 'team-' . bin2hex(random_bytes(12)) . '.' . $allowed[$mime];
-                if (move_uploaded_file($file['tmp_name'], ADMIN_UPLOAD_DIR . '/' . $filename)) {
-                    $member['image'] = 'uploads/' . $filename;
+                $imageUrl = app_upload_image($filename, $mime, $file['tmp_name']);
+                if ($imageUrl !== false) {
+                    $member['image'] = $imageUrl;
                 } else {
                     $error = 'Không lưu được ảnh đại diện.';
                 }

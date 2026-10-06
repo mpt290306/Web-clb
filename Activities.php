@@ -7,8 +7,7 @@ include 'config.php';
 
 // 1. Lấy dữ liệu bài viết hoạt động
 $api_url = URL_BLOG;
-$response = @file_get_contents($api_url);
-$activities = json_decode($response, true);
+$activities = api_read_json($api_url);
 
 if ($activities) {
     $activities = array_reverse($activities); 
@@ -16,7 +15,7 @@ if ($activities) {
     $activities = []; 
 }
 
-$settings = json_decode(@file_get_contents(URL_HERO_BG), true);
+$settings = api_read_json(URL_HERO_BG);
 $activities_banner_url = $settings[3]['link'] ?? ''; 
 ?>
 

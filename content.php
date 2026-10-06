@@ -1,12 +1,10 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/storage.php';
 
 function local_posts(): array
 {
-    $path = __DIR__ . '/data/posts.json';
-    if (!is_file($path)) return [];
-    $posts = json_decode((string) file_get_contents($path), true);
-    if (!is_array($posts)) return [];
+    $posts = app_read_json('posts.json');
     return array_values(array_filter($posts, fn($post) => ($post['status'] ?? 'draft') === 'published'));
 }
 

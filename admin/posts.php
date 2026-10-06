@@ -33,6 +33,7 @@ admin_layout_start('Bài viết');
                     </form>
                     <form method="post" action="post-delete.php" onsubmit="return confirm('Xóa bài viết này?')">
                         <input type="hidden" name="id" value="<?= admin_e($post['id']) ?>">
+                        <input type="hidden" name="token" value="<?= admin_e(admin_form_token()) ?>">
                         <button type="submit" class="link-danger">Xóa</button>
                     </form>
                 </td>

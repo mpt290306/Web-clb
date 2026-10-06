@@ -4,15 +4,14 @@ include 'config.php';
 
 // Thay bằng URL API của bạn từ SheetDB
 $api_url = URL_NOTIFICATIONS;
-$response = file_get_contents($api_url);
-$activities = json_decode($response, true);
+$activities = api_read_json($api_url);
 if ($activities) {
     $activities = array_reverse($activities); // Đảo ngược mảng
 }
 
 // Nếu lấy dữ liệu thất bại, gán mảng rỗng
 if (!$activities) $activities = [];
-$settings = json_decode(@file_get_contents(URL_HERO_BG), true);
+$settings = api_read_json(URL_HERO_BG);
 $notification_banner_url = $settings[4]['link'] ?? 'Image/default-notification.jpg'; 
 ?>
 

@@ -7,8 +7,7 @@ include 'config.php';
 
 // Gọi API lấy TOÀN BỘ danh sách Mạnh Thường Quân
 $api_url = URL_SPONSORS;
-$response = @file_get_contents($api_url);
-$sponsors_all = json_decode($response, true);
+$sponsors_all = api_read_json($api_url);
 
 if ($sponsors_all) {
     // Đảo ngược mảng để người mới đóng góp hiện lên đầu

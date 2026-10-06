@@ -42,5 +42,6 @@
     </li>
 </div>
 
-<!-- Header JavaScript (menu toggle và các chức năng header) -->
-<script src="JS/header.js"></script>
+</div>
+</body>
+</html>

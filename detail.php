@@ -20,9 +20,8 @@ if ($type === 'activities') {
     $sheet_name = 'sponsors';
 }
 
-$api_detail = BASE_URL . "/search?id=" . $id . "&sheet=" . $sheet_name;
-$res_detail = @file_get_contents($api_detail);
-$data_detail = json_decode($res_detail, true);
+$api_detail = BASE_URL . "/search?id=" . rawurlencode((string) $id) . "&sheet=" . $sheet_name;
+$data_detail = api_read_json($api_detail);
 $article = $data_detail[0] ?? null;
 
 if (!$article) {
@@ -31,8 +30,7 @@ if (!$article) {
 }
 
 $api_all = BASE_URL . "?sheet=" . $sheet_name;
-$res_all = @file_get_contents($api_all);
-$all_posts = json_decode($res_all, true);
+$all_posts = api_read_json($api_all);
 
 if ($all_posts) {
     $recent_posts = array_slice(array_reverse($all_posts), 0, 4);

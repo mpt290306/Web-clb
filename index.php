@@ -5,17 +5,8 @@ if (session_status() === PHP_SESSION_NONE) {
 include "header.php";
 include "config.php"; 
 
-function home_fetch_json(string $url): array {
-    if (!filter_var($url, FILTER_VALIDATE_URL)) return [];
-    $context = stream_context_create(['http' => ['timeout' => 4]]);
-    $response = @file_get_contents($url, false, $context);
-    if ($response === false) return [];
-    $data = json_decode($response, true);
-    return is_array($data) ? $data : [];
-}
-
 // 1. Kéo dữ liệu Hoạt động từ Sheet 'blog'
-$activities_home = home_fetch_json(URL_ACTIVITIES);
+$activities_home = api_read_json(URL_ACTIVITIES);
 if ($activities_home) {
     $activities_home = array_slice(array_reverse($activities_home), 0, 4);
 } else {
@@ -23,14 +14,14 @@ if ($activities_home) {
 }
 
 // 2. Kéo dữ liệu Mạnh thường quân từ Sheet 'sponsors' (Lấy 6 người)
-$sponsors_home = home_fetch_json(URL_SPONSORS);
+$sponsors_home = api_read_json(URL_SPONSORS);
 if ($sponsors_home) {
     $sponsors_home = array_slice(array_reverse($sponsors_home), 0, 6);
 } else {
     $sponsors_home = [];
 }
 
-$settings = home_fetch_json(URL_HERO_BG);
+$settings = api_read_json(URL_HERO_BG);
 $hero_bg_url = $settings[0]['link'] ?? '';
 ?>
 

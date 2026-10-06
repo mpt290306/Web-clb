@@ -133,6 +133,4 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         });
     </script>
 
-    <script src="<?php echo htmlspecialchars($assetBasePath . 'JS/header.js'); ?>"></script>
-    
     <div style="padding-top: 80px;">

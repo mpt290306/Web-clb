@@ -2,7 +2,7 @@
 <?php include 'config.php'; ?>
 
 <?php
-$settings = json_decode(@file_get_contents(URL_HERO_BG), true);
+$settings = api_read_json(URL_HERO_BG);
 $sponsor_banner_url = $settings[3]['link'] ?? 'Image/default-sponsor.jpg'; 
 ?>
 

@@ -1,25 +1,29 @@
 <?php
 declare(strict_types=1);
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_set_cookie_params([
+        'httponly' => true,
+        'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https'),
+        'samesite' => 'Lax',
+    ]);
+    session_start();
+}
+require_once __DIR__ . '/../storage.php';
 
 if (is_file(__DIR__ . '/../.env')) {
     foreach (file(__DIR__ . '/../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
         if (strpos(trim($line), '#') === 0 || strpos($line, '=') === false) continue;
         [$name, $value] = explode('=', $line, 2);
-        putenv(trim($name) . '=' . trim($value, " \t\n\r\0\x0B\"'"));
+        $name = trim($name);
+        if (getenv($name) === false) putenv($name . '=' . trim($value, " \t\n\r\0\x0B\"'"));
     }
 }
-define('ADMIN_PASSWORD_HASH', getenv('ADMIN_PASSWORD_HASH') ?: '$2y$10$ujiOz48AEAmIiOZrrxUf0O7RfURKIypB67NNh3UvI1ZwAAf7PPySa');
-const ADMIN_DATA_DIR = __DIR__ . '/../data';
-const ADMIN_UPLOAD_DIR = __DIR__ . '/../uploads';
-
-if (!is_dir(ADMIN_DATA_DIR)) {
-    mkdir(ADMIN_DATA_DIR, 0755, true);
-}
-if (!is_dir(ADMIN_UPLOAD_DIR)) {
-    mkdir(ADMIN_UPLOAD_DIR, 0755, true);
-}
+define('ADMIN_PASSWORD_HASH', (string) getenv('ADMIN_PASSWORD_HASH'));
+define('ADMIN_PASSWORD', (string) getenv('ADMIN_PASSWORD'));
+define('ADMIN_DATA_DIR', app_data_dir());
+define('ADMIN_UPLOAD_DIR', app_upload_dir());
+app_ensure_storage();
 
 function admin_is_logged_in(): bool
 {
@@ -41,17 +45,12 @@ function admin_e(?string $value): string
 
 function admin_read_json(string $filename, array $default = []): array
 {
-    $path = ADMIN_DATA_DIR . '/' . $filename;
-    if (!is_file($path)) return $default;
-    $decoded = json_decode((string) file_get_contents($path), true);
-    return is_array($decoded) ? $decoded : $default;
+    return app_read_json($filename, $default);
 }
 
 function admin_write_json(string $filename, array $data): bool
 {
-    $path = ADMIN_DATA_DIR . '/' . $filename;
-    $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    return $json !== false && file_put_contents($path, $json . PHP_EOL, LOCK_EX) !== false;
+    return app_write_json($filename, $data);
 }
 
 function admin_redirect(string $url, string $message = '', string $type = 'success'): never
@@ -78,6 +77,18 @@ function admin_team_check_token(): bool
 {
     $submitted = (string) ($_POST['token'] ?? '');
     return $submitted !== '' && hash_equals(admin_team_token(), $submitted);
+}
+
+function admin_form_token(): string
+{
+    if (empty($_SESSION['admin_form_token'])) $_SESSION['admin_form_token'] = bin2hex(random_bytes(32));
+    return (string) $_SESSION['admin_form_token'];
+}
+
+function admin_form_check_token(): bool
+{
+    $submitted = (string) ($_POST['token'] ?? '');
+    return $submitted !== '' && hash_equals(admin_form_token(), $submitted);
 }
 
 function admin_team_image_src(string $image): string
@@ -122,6 +133,9 @@ function admin_layout_start(string $title): void
         </aside>
         <main class="admin-main">
             <div class="admin-topbar"><span>Trang quản trị</span><strong><?= admin_e($_SESSION['admin_username'] ?? 'Admin') ?></strong></div>
+            <?php if (getenv('RENDER') && !supabase_configured() && (string) getenv('APP_DATA_DIR') === ''): ?>
+                <div class="flash error">Dữ liệu và ảnh đang lưu tạm trên Render. Hãy cấu hình lưu trữ lâu dài trước khi nhập nội dung thật.</div>
+            <?php endif; ?>
             <?php if ($flash): ?><div class="flash <?= admin_e($flash['type']) ?>"><?= admin_e($flash['message']) ?></div><?php endif; ?>
 <?php
 }

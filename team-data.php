@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/storage.php';
 
 function team_members(string $type): array
 {
-    $path = __DIR__ . '/data/team.json';
-    $data = is_file($path) ? json_decode((string) file_get_contents($path), true) : [];
+    $data = app_read_json('team.json');
     if (!is_array($data)) return [];
     return array_values(array_filter($data, fn($member) => is_array($member) && ($member['type'] ?? 'board') === $type));
 }
