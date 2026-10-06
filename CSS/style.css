@@ -148,8 +148,34 @@ a {
   padding: 10px 24px;
 }
 
+/* Keep banner copy centered horizontally in the clear upper part of each photo. */
+.hero-section.photo-hero {
+  align-items: flex-start;
+  padding-top: clamp(20px, 3vw, 40px);
+}
+
+.photo-hero .hero-content {
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  justify-content: flex-start;
+}
+
+.photo-hero .hero-text {
+  width: 100%;
+  text-align: center;
+}
+
+.photo-hero .hero-title {
+  margin-top: 0;
+}
+
+.photo-hero .hero-subtitle {
+  margin-bottom: 16px;
+}
+
 @media (max-width: 768px) {
-  .hero-section.hero-with-bg {
+  .hero-section.photo-hero {
     padding: 20px 16px 24px;
   }
 

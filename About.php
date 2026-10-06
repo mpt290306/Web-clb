@@ -19,7 +19,7 @@ $about_banner_url = $settings[1]['link'] ?? 'Image/default-about-banner.jpg';
 
 <link rel="stylesheet" href="CSS/about.css">
 
-<section class="about-hero hero-section" style="background-image: linear-gradient(rgba(61, 55, 55, 0.3), rgba(37, 36, 36, 0.3)), url('<?php echo $about_banner_url; ?>');">
+<section class="about-hero hero-section photo-hero" style="background-image: linear-gradient(rgba(61, 55, 55, 0.3), rgba(37, 36, 36, 0.3)), url('<?php echo $about_banner_url; ?>');">
     <div class="hero-content">
         <div class="hero-text">
             <h1 class="hero-title">Về Quỹ Học Bổng Chúng Tôi</h1>

@@ -33,7 +33,7 @@ $activities_banner_url = $settings[3]['link'] ?? '';
 }
 </style>
 
-<section class="hero-section text-center">
+<section class="hero-section text-center photo-hero">
     <div class="hero-content">
         <div class="hero-text full-width">
             <h1 class="hero-title">Hoạt Động</h1>

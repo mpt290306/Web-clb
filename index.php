@@ -34,7 +34,7 @@ $hero_bg_url = $settings[0]['link'] ?? '';
     }
 </style>
 
-    <section class="hero-section hero-with-bg">
+    <section class="hero-section hero-with-bg photo-hero">
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">CLB Golf Đa Phước</h1>

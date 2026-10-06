@@ -30,7 +30,7 @@ $notification_banner_url = $settings[4]['link'] ?? 'Image/default-notification.j
 }
 </style>
 
-<section class="hero-section text-center">
+<section class="hero-section text-center photo-hero">
     <div class="hero-content">
         <div class="hero-text full-width">
             <h1 class="hero-title">Thông Báo</h1>
