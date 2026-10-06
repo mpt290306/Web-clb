@@ -1,0 +1,58 @@
+[
+    {
+        "id":  "board_1",
+        "type":  "board",
+        "name":  "Võ Ngọc Châu",
+        "position":  "Ban điều hành",
+        "detail":  "",
+        "image":  ""
+    },
+    {
+        "id":  "board_2",
+        "type":  "board",
+        "name":  "Dương Việt Hùng",
+        "position":  "Ban điều hành",
+        "detail":  "",
+        "image":  ""
+    },
+    {
+        "id":  "board_3",
+        "type":  "board",
+        "name":  "Võ Ngọc Hường",
+        "position":  "Ban điều hành",
+        "detail":  "",
+        "image":  ""
+    },
+    {
+        "id":  "board_4",
+        "type":  "board",
+        "name":  "Nguyễn Thành Đạt",
+        "position":  "Ban điều hành",
+        "detail":  "Bí thư Đoàn Đại học Đà Nẵng",
+        "image":  ""
+    },
+    {
+        "id":  "board_5",
+        "type":  "board",
+        "name":  "Nguyễn Nho Trung",
+        "position":  "Ban cố vấn",
+        "detail":  "",
+        "image":  ""
+    },
+    {
+        "id":  "board_6",
+        "type":  "board",
+        "name":  "Lê Trung Chinh",
+        "position":  "Ban cố vấn",
+        "detail":  "",
+        "image":  ""
+    },
+    {
+        "id":  "board_7",
+        "type":  "board",
+        "name":  "PGS.TS. Nguyễn Ngọc Vũ",
+        "position":  "Ban cố vấn",
+        "detail":  "Giám đốc Đại học Đà Nẵng",
+        "image":  ""
+    }
+]

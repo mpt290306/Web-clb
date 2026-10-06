@@ -68,6 +68,24 @@ function admin_flash(): ?array
     return $flash;
 }
 
+function admin_team_token(): string
+{
+    if (empty($_SESSION['team_token'])) $_SESSION['team_token'] = bin2hex(random_bytes(32));
+    return (string) $_SESSION['team_token'];
+}
+
+function admin_team_check_token(): bool
+{
+    $submitted = (string) ($_POST['token'] ?? '');
+    return $submitted !== '' && hash_equals(admin_team_token(), $submitted);
+}
+
+function admin_team_image_src(string $image): string
+{
+    if (preg_match('~^https?://~i', $image)) return $image;
+    return '../' . ltrim($image, '/');
+}
+
 function admin_slug(string $value): string
 {
     $value = trim($value);
@@ -95,6 +113,8 @@ function admin_layout_start(string $title): void
             <nav>
                 <a href="index.php">Tổng quan</a>
                 <a href="posts.php">Bài viết</a>
+                <a href="team.php?type=board">Ban điều hành</a>
+                <a href="team.php?type=student">Sinh viên</a>
                 <a href="settings.php">Thông tin website</a>
                 <a href="../" target="_blank">Xem website ↗</a>
             </nav>

@@ -13,6 +13,7 @@ $menuDefinitions = [
         'href_php' => 'About.php',
         'children' => [
             ['label' => 'Ban điều hành Quỹ', 'href_php' => 'ExecutiveBoard.php'],
+            ['label' => 'Sinh viên', 'href_php' => 'Students.php'],
         ]
     ],
     [
