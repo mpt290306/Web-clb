@@ -17,6 +17,8 @@ Service dùng Docker và lắng nghe cổng 10000. Trong **Environment**, đặt
 
 `ADMIN_PASSWORD_HASH` vẫn được hỗ trợ nếu không đặt `ADMIN_PASSWORD`.
 
+Các trang dùng SheetDB có bản sao dữ liệu công khai tại `data/sheets/` để tiếp tục hiển thị khi API hoặc biến `SHEETDB_API_LINK` thiếu. Bản sao chỉ phản ánh nội dung tại thời điểm lưu vào Git; đặt `SHEETDB_API_LINK` trong Render để nhận nội dung mới nhất.
+
 Không lưu nội dung quản trị trong filesystem của Render Free để sử dụng lâu dài: file ghi trên instance sẽ mất khi service ngủ, khởi động lại hoặc deploy. Cấu hình Supabase trước khi bắt đầu nhập dữ liệu thật.
 
 ## Lưu dữ liệu và ảnh trên Render Free bằng Supabase

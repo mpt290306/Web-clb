@@ -1,0 +1,32 @@
+[
+    {
+        "id":  "1",
+        "name":  "background_image",
+        "link":  "https://res.cloudinary.com/dbc1ssw27/image/upload/v1776965662/k4zjvcqxglahmusluoxw.jpg",
+        "text":  ""
+    },
+    {
+        "id":  "2",
+        "name":  "banner_about",
+        "link":  "https://res.cloudinary.com/dbc1ssw27/image/upload/v1776965662/k4zjvcqxglahmusluoxw.jpg",
+        "text":  ""
+    },
+    {
+        "id":  "3",
+        "name":  "banner_notification",
+        "link":  "https://res.cloudinary.com/dbc1ssw27/image/upload/v1776965662/k4zjvcqxglahmusluoxw.jpg",
+        "text":  ""
+    },
+    {
+        "id":  "4",
+        "name":  "banner_activitiy",
+        "link":  "https://res.cloudinary.com/dbc1ssw27/image/upload/v1776965662/k4zjvcqxglahmusluoxw.jpg",
+        "text":  ""
+    },
+    {
+        "id":  "5",
+        "name":  "banner_sponso",
+        "link":  "https://res.cloudinary.com/dbc1ssw27/image/upload/v1776965662/k4zjvcqxglahmusluoxw.jpg",
+        "text":  ""
+    }
+]

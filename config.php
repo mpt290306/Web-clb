@@ -33,11 +33,27 @@ define('URL_HERO_BG', BASE_URL . '?sheet=defaults');
 define('URL_ABOUT_DATA', BASE_URL . '?sheet=abouts');
 
 function api_read_json(string $url): array {
-    if (!filter_var($url, FILTER_VALIDATE_URL)) return [];
-    $context = stream_context_create(['http' => ['timeout' => 5]]);
-    $response = @file_get_contents($url, false, $context);
-    if ($response === false) return [];
-    $data = json_decode($response, true);
-    return is_array($data) ? $data : [];
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        $context = stream_context_create(['http' => ['timeout' => 5]]);
+        $response = @file_get_contents($url, false, $context);
+        if ($response !== false) {
+            $data = json_decode($response, true);
+            if (is_array($data)) return $data;
+        }
+    }
+
+    $query = parse_url($url, PHP_URL_QUERY);
+    parse_str(is_string($query) ? $query : '', $parameters);
+    $sheet = $parameters['sheet'] ?? '';
+    if (!is_string($sheet) || !in_array($sheet, ['notifications', 'blog', 'sponsors', 'activities', 'defaults', 'abouts'], true)) return [];
+    $path = __DIR__ . '/data/sheets/' . $sheet . '.json';
+    $rows = is_file($path) ? json_decode((string) file_get_contents($path), true) : [];
+    if (!is_array($rows)) return [];
+
+    $urlPath = (string) parse_url($url, PHP_URL_PATH);
+    if (str_ends_with($urlPath, '/search') && isset($parameters['id'])) {
+        return array_values(array_filter($rows, fn($row) => (string) ($row['id'] ?? '') === (string) $parameters['id']));
+    }
+    return $rows;
 }
 ?>
