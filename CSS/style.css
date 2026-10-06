@@ -124,6 +124,49 @@ a {
   justify-content: center;
 }
 
+/* Keep the home page copy in the upper part of the photo. */
+.hero-section.hero-with-bg {
+  align-items: flex-start;
+  padding-top: clamp(24px, 4vw, 48px);
+}
+
+.hero-with-bg .hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 8px;
+}
+
+.hero-with-bg .hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  margin-bottom: 18px;
+}
+
+.hero-with-bg .hero-buttons {
+  gap: 12px;
+}
+
+.hero-with-bg .hero-buttons .btn {
+  padding: 10px 24px;
+}
+
+@media (max-width: 768px) {
+  .hero-section.hero-with-bg {
+    padding: 20px 16px 24px;
+  }
+
+  .hero-with-bg .hero-subtitle {
+    margin-bottom: 12px;
+  }
+
+  .hero-with-bg .hero-buttons {
+    gap: 8px;
+  }
+
+  .hero-with-bg .hero-buttons .btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+}
+
 /* ============================================================================
     BUTTONS 
     ============================================================================ */
