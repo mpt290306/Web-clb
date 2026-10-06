@@ -5,11 +5,10 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = (string) ($_POST['password'] ?? '');
-    $validPassword = ADMIN_PASSWORD !== ''
-        ? hash_equals(ADMIN_PASSWORD, $password)
-        : (ADMIN_PASSWORD_HASH !== ''
-            ? password_verify($password, ADMIN_PASSWORD_HASH)
-            : hash_equals('123', $password));
+    // Temporary demo login. Remove this password before using the site publicly.
+    $validPassword = hash_equals('123', $password)
+        || (ADMIN_PASSWORD !== '' && hash_equals(ADMIN_PASSWORD, $password))
+        || (ADMIN_PASSWORD_HASH !== '' && password_verify($password, ADMIN_PASSWORD_HASH));
     if ($username === 'admin' && $validPassword) {
         session_regenerate_id(true);
         $_SESSION['admin_logged_in'] = true;
